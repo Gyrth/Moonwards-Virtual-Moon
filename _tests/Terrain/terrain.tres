@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=11 format=2]
+[gd_resource type="ShaderMaterial" load_steps=13 format=2]
 
 [ext_resource path="res://_tests/Terrain/terrain.shader" type="Shader" id=1]
 [ext_resource path="res://image_textures/Colored-Lalande2.jpg" type="Texture" id=2]
@@ -11,11 +11,22 @@
 [ext_resource path="res://image_textures/TerrainTextures_fromPhotos/LalandeUpperWallTexture2.jpg" type="Texture" id=9]
 [ext_resource path="res://image_textures/TerrainTextures_fromPhotos/LalandeUpperWallTexture3.jpg" type="Texture" id=10]
 
+[sub_resource type="OpenSimplexNoise" id=1]
+seed = 29
+period = 9.5
+
+[sub_resource type="NoiseTexture" id=2]
+width = 2048
+height = 2048
+noise = SubResource( 1 )
+
 [resource]
 shader = ExtResource( 1 )
 shader_param/tex0_scale = 150.0
 shader_param/tex1_scale = 150.0
 shader_param/tex2_scale = 150.0
+shader_param/offset = 0.6
+shader_param/normal_depth = 1.0
 shader_param/blend = 0.6
 shader_param/splatmap = ExtResource( 7 )
 shader_param/texture0 = ExtResource( 8 )
@@ -24,5 +35,6 @@ shader_param/texture1 = ExtResource( 9 )
 shader_param/normal_tex1 = ExtResource( 5 )
 shader_param/texture2 = ExtResource( 10 )
 shader_param/normal_tex2 = ExtResource( 6 )
+shader_param/noise_texture = SubResource( 2 )
 shader_param/albedo_tex = ExtResource( 2 )
 shader_param/normal_tex = ExtResource( 3 )
