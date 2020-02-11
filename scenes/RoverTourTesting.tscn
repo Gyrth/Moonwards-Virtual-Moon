@@ -1,9 +1,47 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://materials/MossTexture.tres" type="Material" id=1]
-[ext_resource path="res://model_assets/AthleteRover.tscn" type="PackedScene" id=2]
-[ext_resource path="res://model_assets/PassengerPod.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/Player/avatar_v2/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield.mesh" type="ArrayMesh" id=2]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_AirlockMeasure001.mesh" type="ArrayMesh" id=3]
+[ext_resource path="res://model_assets/Airlock.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_AirlockStructure001.mesh" type="ArrayMesh" id=5]
+[ext_resource path="res://scenes/cshapes/Spaceport__SpaceportMainWhippleShield_AirlockStructure001_AirlockStructure001_col_CollisionShape.shape" type="Shape" id=6]
+[ext_resource path="res://model_assets/ShuttleProp.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_InitialColonyGrounds005.mesh" type="ArrayMesh" id=8]
+[ext_resource path="res://scenes/cshapes/Spaceport__SpaceportMainWhippleShield_InitialColonyGrounds005_InitialColonyGrounds005_col_CollisionShape.shape" type="Shape" id=9]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_InitialColonyGrounds006.mesh" type="ArrayMesh" id=10]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_NuclearEngineStorage.mesh" type="ArrayMesh" id=11]
+[ext_resource path="res://scenes/cshapes/Spaceport__SpaceportMainWhippleShield_NuclearEngineStorage_NuclearEngineStorage_col_CollisionShape.shape" type="Shape" id=12]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_Spaceport-FuelBuildingInsulationFrame.mesh" type="ArrayMesh" id=13]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_Spaceport-FuelingStation.mesh" type="ArrayMesh" id=14]
+[ext_resource path="res://scenes/cshapes/Spaceport__SpaceportMainWhippleShield_Spaceport-FuelingStation_Spaceport-FuelingStation_col_CollisionShape.shape" type="Shape" id=15]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_Spaceport-H2-TankPipe.mesh" type="ArrayMesh" id=16]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_Spaceport-H2Tank.mesh" type="ArrayMesh" id=17]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_Spaceport-OxyTankPipe.mesh" type="ArrayMesh" id=18]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_SpaceportDocks-Building.mesh" type="ArrayMesh" id=19]
+[ext_resource path="res://scenes/cshapes/Spaceport__SpaceportMainWhippleShield_SpaceportDocks-Building_SpaceportDocks-Building_col_CollisionShape.shape" type="Shape" id=20]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_SpaceportDocksProtection.mesh" type="ArrayMesh" id=21]
+[ext_resource path="res://scenes/cshapes/Spaceport__SpaceportMainWhippleShield_SpaceportDocksProtection_SpaceportDocksProtection_col_CollisionShape.shape" type="Shape" id=22]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_SpacePortMain000.mesh" type="ArrayMesh" id=23]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_SpacePortMain001.mesh" type="ArrayMesh" id=24]
+[ext_resource path="res://scenes/cshapes/Spaceport__SpaceportMainWhippleShield_SpacePortMain001_SpacePortMain001_col_CollisionShape.shape" type="Shape" id=25]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_SpacePortMain002.mesh" type="ArrayMesh" id=26]
+[ext_resource path="res://scenes/cshapes/Spaceport__SpaceportMainWhippleShield_SpacePortMain002_SpacePortMain002_col_CollisionShape.shape" type="Shape" id=27]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_SpacePortMain003.mesh" type="ArrayMesh" id=28]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_SpaceportMainWhippleShieldSupports.mesh" type="ArrayMesh" id=29]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_SpaceportMainWhippleShieldSupports005.mesh" type="ArrayMesh" id=30]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_SpaceportOxyTank.mesh" type="ArrayMesh" id=31]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_SpaceportTarp.mesh" type="ArrayMesh" id=32]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_SpaceportTarpTowers.mesh" type="ArrayMesh" id=33]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_SpaceportWhippleShieldSupports.mesh" type="ArrayMesh" id=34]
+[ext_resource path="res://scenes/meshes/Spaceport__SpaceportMainWhippleShield_Truss-Triangular002.mesh" type="ArrayMesh" id=35]
+[ext_resource path="res://model_assets/HexpaneWindow.tscn" type="PackedScene" id=36]
+[ext_resource path="res://scenes/AirlockBay.tscn" type="PackedScene" id=37]
+[ext_resource path="res://assets/Rover/TourPod.tscn" type="PackedScene" id=38]
+[ext_resource path="res://model_assets/PassengerPod.tscn" type="PackedScene" id=39]
+[ext_resource path="res://assets/Player/avatar_v2/player.tscn" type="PackedScene" id=40]
+[ext_resource path="res://assets/Rover/Rover.tscn" type="PackedScene" id=41]
+[ext_resource path="res://materials/LavastoneDark1.tres" type="Material" id=42]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -11,37 +49,351 @@
 background_mode = 2
 background_sky = SubResource( 1 )
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="NavigationMesh" id=3]
+vertices = PoolVector3Array( 2.87042, 2.7, -10.3, 3.07043, 2.7, -10.7, 2.87042, 2.7, -11.2, 2.87042, 2.7, -11.2, 3.07043, 2.7, -11.7, 2.87042, 2.7, -12.2, 1.07043, 2.7, -14.1, 0.0704346, 2.7, -13.5, 2.87042, 2.7, -12.2, 3.07043, 2.7, -12.8, 2.87042, 2.7, -13.3, 2.87042, 2.7, -7.6, 3.17041, 2.7, -8.4, 2.87042, 2.7, -8.8, 1.67041, 2.7, -5.1, -0.729553, 2.7, -0.4, 0.870422, 2.7, -0.4, 0.270447, 2.7, -1.4, -0.32959, 2.7, -1.2, -1.62958, 2.7, -15.2, -1.0296, 2.7, -16.2, -1.22955, 2.7, -20.1, -1.62958, 2.7, -21.2, -11.8296, 2.7, -23.5, 2.87042, 2.7, -8.8, 3.07043, 2.7, -9.3, 2.87042, 2.7, -10.3, -1.0296, 2.7, -22.2, -0.129578, 2.7, -22.6, -0.129578, 2.7, -23.5, -11.8296, 2.7, -23.5, 2.87042, 2.7, -13.3, 3.27045, 2.7, -14, 2.67041, 2.7, -15, 3.37042, 2.7, -4.7, 3.57043, 2.7, -4.4, 4.17041, 2.7, -6.3, 2.67041, 2.7, -15, 1.4704, 2.7, -15, 1.07043, 2.7, -14.1, 2.87042, 2.7, -12.2, 2.87042, 2.7, -13.3, -5.5296, 2.7, -0.1, -3.62958, 2.7, -0.699999, -3.92957, 2.7, -1.2, -6.22955, 2.7, -0.5, -3.92957, 2.7, -3.5, -3.32959, 2.7, -4.5, -8.5296, 2.7, -0.5, 2.57043, 2.7, -5.1, 3.37042, 2.7, -4.7, 4.17041, 2.7, -6.3, 3.27045, 2.7, -6.8, -9.5296, 2.7, 0.1, -3.32959, 2.7, -4.5, -1.62958, 2.7, -15.2, -11.8296, 2.7, -23.5, -23.5296, 2.7, -10.9, -23.5296, 2.7, -4.6, -0.32959, 2.7, -3.5, -0.32959, 2.7, -1.2, 0.270447, 2.7, -1.4, 0.270447, 2.7, -3.7, -11.8296, 2.7, -23.5, -23.5296, 2.7, -23.5, -23.5296, 2.7, -17.2, -0.729553, 2.7, -4.3, -0.32959, 2.7, -3.5, 0.270447, 2.7, -3.7, 0.870422, 2.7, -4.7, -2.5296, 2.7, -4.9, -1.72955, 2.7, -4.9, 1.67041, 2.7, -5.1, 2.87042, 2.7, -8.8, 2.87042, 2.7, -10.3, 1.67041, 2.7, -5.1, 2.57043, 2.7, -5.1, 3.27045, 2.7, -6.8, 2.87042, 2.7, -7.6, -6.22955, 2.7, -0.5, -5.5296, 2.7, -0.1, -3.92957, 2.7, -1.2, -3.92957, 2.7, -3.5, -0.729553, 2.7, -4.3, 0.870422, 2.7, -4.7, 1.67041, 2.7, -5.1, -1.72955, 2.7, -4.9, -1.62958, 2.7, -21.2, -1.0296, 2.7, -22.2, -11.8296, 2.7, -23.5, -23.5296, 2.7, 1.7, -9.92957, 2.7, 1.7, -9.92957, 2.7, 0.9, -3.32959, 2.7, -4.5, -1.22955, 2.7, -14.1, -1.62958, 2.7, -15.2, -23.5296, 2.7, 1.7, -9.92957, 2.7, 0.9, -9.5296, 2.7, 0.1, -23.5296, 2.7, -4.6, -1.0296, 2.7, -16.2, -0.129578, 2.7, -16.6, -0.129578, 2.7, -19.5, -1.22955, 2.7, -20.1, -11.8296, 2.7, -23.5, -23.5296, 2.7, -17.2, -23.5296, 2.7, -10.9, -9.5296, 2.7, 0.1, -8.5296, 2.7, -0.5, -3.32959, 2.7, -4.5, 2.87042, 2.7, -10.3, 2.87042, 2.7, -11.2, 0.0704346, 2.7, -13.5, -1.22955, 2.7, -14.1, -3.32959, 2.7, -4.5, -2.5296, 2.7, -4.9, -0.129578, 2.7, -23.5, -0.129578, 2.7, -22.6, 0.870422, 2.7, -22.2, 3.07043, 2.7, -22, 4.17041, 2.7, -22.6, 4.17041, 2.7, -23.5, 1.4704, 2.7, -21, 2.67041, 2.7, -21, 3.07043, 2.7, -22, 0.870422, 2.7, -22.2, 7.67041, 2.7, -22.5, 8.57043, 2.7, -22.6, 8.4704, 2.7, -23.5, 5.77045, 2.7, -21, 6.27045, 2.7, -20.9, 6.87042, 2.7, -22.1, 5.17041, 2.7, -22.2, 4.17041, 2.7, -23.5, 4.17041, 2.7, -22.6, 5.17041, 2.7, -22.2, 6.87042, 2.7, -22.1, 7.67041, 2.7, -22.5, 8.4704, 2.7, -23.5, 10.9704, 2.7, -22.1, 11.3704, 2.7, -21.4, 11.8704, 2.7, -22.2, 11.8704, 2.7, -22.2, 12.8704, 2.7, -22.6, 12.8704, 2.7, -23.5, 8.4704, 2.7, -23.5, 10.1704, 2.7, -22.5, 10.9704, 2.7, -22.1, 8.4704, 2.7, -23.5, 8.57043, 2.7, -22.6, 10.1704, 2.7, -22.5, 15.9704, 2.7, -22, 16.8704, 2.7, -22.5, 16.8704, 2.7, -23.5, 12.8704, 2.7, -23.5, 12.8704, 2.7, -22.6, 13.9704, 2.7, -22, 13.9704, 2.7, -22, 14.3704, 2.7, -21, 15.5704, 2.7, -21, 15.9704, 2.7, -22, 24.6704, 3, -22.2, 24.6704, 3, -13.3, 27.0704, 3, -13.3, 27.0704, 3, -22.2, 3.07043, 2.7, -20.1, 2.67041, 2.7, -21, 1.4704, 2.7, -21, 0.870422, 2.7, -19.9, 1.4704, 2.7, -15, 2.67041, 2.7, -15, 3.07043, 2.7, -16, 0.870422, 2.7, -16.2, 3.07043, 2.7, -16, 4.17041, 2.7, -16.6, 4.17041, 2.7, -19.5, 3.07043, 2.7, -20.1, -0.129578, 2.7, -19.5, -0.129578, 2.7, -16.6, 3.07043, 2.7, -20.1, 0.870422, 2.7, -19.9, -0.129578, 2.7, -19.5, -0.129578, 2.7, -16.6, 0.870422, 2.7, -16.2, 3.07043, 2.7, -16, 6.67041, 2.7, -20.2, 6.27045, 2.7, -20.9, 5.77045, 2.7, -21, 5.17041, 2.7, -19.9, 4.17041, 2.7, -16.6, 5.27045, 2.7, -16, 6.67041, 2.7, -16.6, 6.67041, 2.7, -20.2, 5.17041, 2.7, -19.9, 4.17041, 2.7, -19.5, 16.1704, 2.7, -17.3, 16.6704, 2.7, -16.4, 16.8704, 2.7, -16.5, 16.8704, 2.7, -19.6, 15.9704, 2.7, -20.1, 15.5704, 2.7, -21, 14.3704, 2.7, -21, 13.9704, 2.7, -20.1, 15.3704, 2.7, -17.7, 16.1704, 2.7, -17.3, 16.8704, 2.7, -19.6, 13.9704, 2.7, -20.1, 13.5704, 2.7, -19.8, 13.7704, 2.7, -17.7, 15.3704, 2.7, -17.7, 16.8704, 2.7, -19.6, 15.9704, 2.7, -20.1, 13.7704, 2.7, -17.7, 13.5704, 2.7, -19.8, 12.6704, 2.7, -19.5, 11.5704, 2.7, -17.2, 12.7704, 2.7, -17.1, 13.7704, 2.7, -17.7, 12.6704, 2.7, -19.5, 11.8704, 2.7, -19.9, 11.8704, 2.7, -19.9, 11.5704, 2.7, -20.3, 11.5704, 2.7, -17.2, 12.6704, 6.7, -8.6, 12.9704, 6.7, -8.9, 13.1704, 6.7, -9.6, 11.2704, 6.7, -11.2, 10.7704, 6.7, -11, 10.3704, 6.7, -10.2, 13.1704, 6.7, -9.6, 13.0704, 6.7, -10.6, 12.2704, 6.7, -11.2, 10.3704, 6.7, -10.2, 10.4704, 6.7, -9, 11.0704, 6.7, -8.5, 12.2704, 6.7, -11.2, 11.2704, 6.7, -11.2, 10.3704, 6.7, -10.2, 11.0704, 6.7, -8.5, 12.6704, 6.7, -8.6, 13.1704, 6.7, -9.6, 11.7684, 7, -10.0012, 17.4704, 2.7, -10.7, 17.1704, 2.7, -11.1, 16.8704, 2.7, -10.4, 8.4704, 2.7, -6.2, 9.07043, 2.7, -7.2, 7.67041, 2.7, -6.5, 12.2704, 2.7, -4.7, 11.9704, 2.7, -5.3, 11.5704, 2.7, -5.3, 11.2704, 2.7, -4.7, 16.8704, 2.7, -10.4, 16.3704, 2.7, -10.1, 16.3704, 2.7, -9.6, 16.8704, 2.7, -9.3, 15.7704, 2.7, -6.5, 14.6704, 2.7, -6.9, 15.0704, 2.7, -5.8, 10.4704, 2.7, -4.3, 9.9704, 2.7, -4.3, 3.9704, 2.7, -3.7, 2.57043, 2.7, 0, 1.87042, 2.7, 0, 2.4704, 2.7, 1, 8.4704, 2.7, -5.8, 8.4704, 2.7, -6.2, 7.67041, 2.7, -6.5, 6.4704, 2.7, -6.5, -0.629578, 2.7, 3.2, -0.729553, 2.7, 13.9, 0.0704346, 2.7, 14, 1.07043, 2.7, 3.2, 6.4704, 2.7, -6.5, 5.9704, 2.7, -6.7, 5.17041, 2.7, -6.2, 18.2704, 2.7, -10.3, 17.4704, 2.7, -10.7, 16.8704, 2.7, -10.4, 16.8704, 2.7, -9.3, 17.2704, 2.7, -8.5, 1.67041, 2.7, 15.8, 1.4704, 2.7, 16.4, 1.67041, 2.7, 17.4, 4.87042, 2.7, 23.5, 11.0704, 2.7, 23.5, 3.37042, 2.7, -0.4, 2.57043, 2.7, 0, 2.4704, 2.7, 1, 2.4704, 2.7, 1.8, 10.4704, 2.7, -4.3, 3.9704, 2.7, -3.7, 3.9704, 2.7, -1.4, 13.0704, 2.7, -4.3, 13.0704, 2.7, -4.3, 12.2704, 2.7, -4.7, 11.2704, 2.7, -4.7, 10.4704, 2.7, -4.3, 11.0704, 2.7, 23.5, 17.2704, 2.7, 23.5, 23.5704, 2.7, 15, 11.0704, 2.7, 23.5, 23.5704, 2.7, 15, 23.5704, 2.7, 6.6, 13.5704, 2.7, -4.3, 2.4704, 2.7, 1.8, 1.17041, 2.7, 14.7, 16.8704, 2.7, -7.2, 15.7704, 2.7, -6.5, 15.0704, 2.7, -5.8, 14.3704, 2.7, -4.7, 23.5704, 2.7, -1.9, 23.5704, 2.7, -10.3, 23.5704, 2.7, -10.3, 17.2704, 2.7, -8, 16.8704, 2.7, -7.2, 5.17041, 2.7, -6.2, 4.17041, 2.7, -6.3, 3.57043, 2.7, -4.4, 18.2704, 2.7, -10.3, 17.2704, 2.7, -8.5, 17.2704, 2.7, -8, 23.5704, 2.7, -10.3, 1.17041, 2.7, 14.7, 1.67041, 2.7, 15.8, 11.0704, 2.7, 23.5, 5.17041, 2.7, -6.2, 3.57043, 2.7, -4.4, 3.9704, 2.7, -3.7, 9.17041, 2.7, -4.7, 8.4704, 2.7, -5.8, 6.4704, 2.7, -6.5, 23.5704, 2.7, -1.9, 14.3704, 2.7, -4.7, 13.5704, 2.7, -4.3, 23.5704, 2.7, 6.6, 3.9704, 2.7, -1.4, 3.37042, 2.7, -0.4, 2.4704, 2.7, 1.8, 13.5704, 2.7, -4.3, 13.0704, 2.7, -4.3, 2.4704, 2.7, 1.8, 2.07043, 2.7, 2.6, 1.17041, 2.7, 14.7, 17.2704, 2.7, 23.5, 23.5704, 2.7, 23.5, 23.5704, 2.7, 15, -0.129578, 2.7, 19.2, -1.32959, 2.7, 19.3, -1.32959, 2.7, 23.5, 1.07043, 2.7, 3.2, 0.0704346, 2.7, 14, 1.17041, 2.7, 14.7, 2.07043, 2.7, 2.6, 0.970398, 2.7, 18.7, -0.129578, 2.7, 19.2, -1.32959, 2.7, 23.5, 9.9704, 2.7, -4.3, 9.17041, 2.7, -4.7, 3.9704, 2.7, -3.7, 0.970398, 2.7, 18.7, -1.32959, 2.7, 23.5, 4.87042, 2.7, 23.5, 1.67041, 2.7, 17.4, 11.5704, 2.7, -9.3, 11.6704, 2.7, -8.9, 11.8704, 2.7, -8.9, 12.2704, 2.7, -9.6, 12.2704, 2.7, -9.6, 12.7704, 2.7, -9.8, 12.1704, 2.7, -10.1, 12.2704, 2.7, -9.6, 12.1704, 2.7, -10.1, 11.8704, 2.7, -10.5, 10.7704, 2.7, -9.9, 11.5704, 2.7, -9.3, -2.62958, 2.7, 1, -2.22955, 2.7, 0.200001, -3.32959, 2.7, -0.199999, -3.62958, 2.7, -0.699999, -5.5296, 2.7, -0.1, -5.22955, 2.7, 0.1, -3.32959, 2.7, -0.199999, -3.62958, 2.7, -0.699999, -5.22955, 2.7, 0.1, -4.82959, 2.7, 0.9, -2.62958, 2.7, 1.7, -2.62958, 2.7, 1, -3.32959, 2.7, -0.199999, -4.82959, 2.7, 0.9, -4.82959, 2.7, 1.7, -23.5296, 2.7, 2.4, -9.92957, 2.7, 2.4, -9.92957, 2.7, 1.7, -23.5296, 2.7, 1.7, -6.32959, 2.7, 13.6, -6.0296, 2.7, 13.8, -5.42957, 2.7, 13.6, -6.32959, 2.7, 4.6, -2.62958, 2.7, 1.7, -4.82959, 2.7, 1.7, -4.82959, 2.7, 3.2, -2.0296, 2.7, 2.8, -6.32959, 2.7, 4.6, -5.42957, 2.7, 13.6, -4.22955, 2.7, 13.6, -2.0296, 2.7, 2.8, -4.82959, 2.7, 3.2, -5.22955, 2.7, 4, -1.22955, 2.7, 3.2, -4.22955, 2.7, 13.6, -4.0296, 2.7, 13.8, -0.729553, 2.7, 13.9, -0.629578, 2.7, 3.2, -1.22955, 2.7, 3.2, -5.22955, 2.7, 4, -6.32959, 2.7, 4.6, -4.22955, 2.7, 13.6, -0.729553, 2.7, 13.9, -9.82959, 2.7, 4.2, -9.5296, 2.7, 3.9, -9.92957, 2.7, 3.2, -15.1296, 2.7, 14, -13.6296, 2.7, 13.8, -13.4296, 2.7, 13.6, -23.5296, 2.7, 16.5, -18.3296, 2.7, 16.5, -17.7296, 2.7, 15.4, -23.5296, 2.7, 16.5, -17.7296, 2.7, 15.4, -16.1296, 2.7, 14.4, -23.5296, 2.7, 16.5, -16.1296, 2.7, 14.4, -15.1296, 2.7, 14, -23.5296, 2.7, 9.4, -23.5296, 2.7, 9.4, -15.1296, 2.7, 14, -13.4296, 2.7, 13.6, -9.92957, 2.7, 3.2, -9.92957, 2.7, 2.4, -23.5296, 2.7, 2.4, -13.4296, 2.7, 13.6, -12.1296, 2.7, 13.7, -9.82959, 2.7, 4.2, -9.92957, 2.7, 3.2, -9.32959, 2.7, 4.2, -9.5296, 2.7, 3.9, -9.82959, 2.7, 4.2, -8.42957, 2.7, 4.6, -9.32959, 2.7, 4.2, -9.82959, 2.7, 4.2, -10.1296, 2.7, 13.7, -8.42957, 2.7, 13.6, -12.1296, 2.7, 13.7, -10.1296, 2.7, 13.7, -9.82959, 2.7, 4.2, -8.42957, 2.7, 13.6, -8.0296, 2.7, 13.8, -6.32959, 2.7, 13.6, -6.32959, 2.7, 4.6, -8.42957, 2.7, 4.6, -18.7296, 2.7, 17.9, -18.2296, 2.7, 17.1, -18.3296, 2.7, 16.5, -23.5296, 2.7, 16.5, -23.5296, 2.7, 18.5, -23.5296, 2.7, 18.5, -18.8296, 2.7, 18.5, -18.7296, 2.7, 17.9, -17.6296, 2.7, 23.5, -17.6296, 2.7, 20.1, -18.4296, 2.7, 19.6, -17.6296, 2.7, 23.5, -18.4296, 2.7, 19.6, -18.8296, 2.7, 18.5, -23.5296, 2.7, 18.5, -23.5296, 2.7, 23.5, -6.32959, 2.7, 19.6, -6.5296, 2.7, 19.4, -7.12958, 2.7, 19.4, -7.32959, 2.7, 19.6, -8.5296, 2.7, 23.5, -8.32959, 2.7, 19.6, -8.5296, 2.7, 19.4, -9.12958, 2.7, 19.4, -9.32959, 2.7, 19.6, -8.5296, 2.7, 23.5, -10.3296, 2.7, 19.6, -10.5296, 2.7, 19.4, -11.1296, 2.7, 19.4, -11.3296, 2.7, 19.6, -10.3296, 2.7, 19.6, -11.3296, 2.7, 19.6, -15.7296, 2.7, 20.4, -15.7296, 2.7, 23.5, -8.5296, 2.7, 23.5, -8.5296, 2.7, 23.5, -5.32959, 2.7, 19.6, -6.32959, 2.7, 19.6, -8.5296, 2.7, 23.5, -9.32959, 2.7, 19.6, -10.3296, 2.7, 19.6, -3.32959, 2.7, 19.6, -5.12958, 2.7, 19.4, -5.32959, 2.7, 19.6, -8.5296, 2.7, 23.5, -1.32959, 2.7, 23.5, -1.32959, 2.7, 19.3, -2.92957, 2.7, 19.3, -3.32959, 2.7, 19.6, -1.32959, 2.7, 23.5, -12.9296, 2.7, 19.3, -14.4296, 2.7, 19.6, -14.8296, 2.7, 20, -12.3296, 2.7, 19.6, -8.5296, 2.7, 23.5, -7.32959, 2.7, 19.6, -8.32959, 2.7, 19.6, -12.3296, 2.7, 19.6, -14.8296, 2.7, 20, -15.7296, 2.7, 20.4, -11.3296, 2.7, 19.6, -15.7296, 2.7, 20.4, -16.5296, 2.7, 20, -17.1296, 2.7, 20.2, -17.6296, 2.7, 23.5, -15.7296, 2.7, 23.5, -17.1296, 2.7, 20.2, -17.6296, 2.7, 20.1, -17.6296, 2.7, 23.5 )
+polygons = [ PoolIntArray( 2, 1, 0 ), PoolIntArray( 7, 6, 3 ), PoolIntArray( 3, 6, 5 ), PoolIntArray( 3, 5, 4 ), PoolIntArray( 10, 9, 8 ), PoolIntArray( 14, 13, 11 ), PoolIntArray( 11, 13, 12 ), PoolIntArray( 18, 17, 15 ), PoolIntArray( 15, 17, 16 ), PoolIntArray( 23, 22, 19 ), PoolIntArray( 19, 22, 21 ), PoolIntArray( 19, 21, 20 ), PoolIntArray( 26, 25, 24 ), PoolIntArray( 30, 29, 27 ), PoolIntArray( 27, 29, 28 ), PoolIntArray( 33, 32, 31 ), PoolIntArray( 36, 35, 34 ), PoolIntArray( 41, 40, 37 ), PoolIntArray( 37, 40, 38 ), PoolIntArray( 38, 40, 39 ), PoolIntArray( 44, 43, 42 ), PoolIntArray( 48, 47, 45 ), PoolIntArray( 45, 47, 46 ), PoolIntArray( 52, 51, 49 ), PoolIntArray( 49, 51, 50 ), PoolIntArray( 58, 57, 53 ), PoolIntArray( 53, 57, 54 ), PoolIntArray( 54, 57, 55 ), PoolIntArray( 55, 57, 56 ), PoolIntArray( 62, 61, 59 ), PoolIntArray( 59, 61, 60 ), PoolIntArray( 65, 64, 63 ), PoolIntArray( 69, 68, 66 ), PoolIntArray( 66, 68, 67 ), PoolIntArray( 74, 73, 70 ), PoolIntArray( 70, 73, 71 ), PoolIntArray( 71, 73, 72 ), PoolIntArray( 78, 77, 75 ), PoolIntArray( 75, 77, 76 ), PoolIntArray( 82, 81, 79 ), PoolIntArray( 79, 81, 80 ), PoolIntArray( 86, 85, 83 ), PoolIntArray( 83, 85, 84 ), PoolIntArray( 89, 88, 87 ), PoolIntArray( 92, 91, 90 ), PoolIntArray( 95, 94, 93 ), PoolIntArray( 99, 98, 96 ), PoolIntArray( 96, 98, 97 ), PoolIntArray( 103, 102, 100 ), PoolIntArray( 100, 102, 101 ), PoolIntArray( 106, 105, 104 ), PoolIntArray( 109, 108, 107 ), PoolIntArray( 115, 114, 110 ), PoolIntArray( 110, 114, 111 ), PoolIntArray( 111, 114, 112 ), PoolIntArray( 112, 114, 113 ), PoolIntArray( 121, 120, 116 ), PoolIntArray( 116, 120, 119 ), PoolIntArray( 116, 119, 118 ), PoolIntArray( 116, 118, 117 ), PoolIntArray( 125, 124, 122 ), PoolIntArray( 122, 124, 123 ), PoolIntArray( 128, 127, 126 ), PoolIntArray( 132, 131, 129 ), PoolIntArray( 129, 131, 130 ), PoolIntArray( 138, 137, 133 ), PoolIntArray( 133, 137, 136 ), PoolIntArray( 133, 136, 135 ), PoolIntArray( 133, 135, 134 ), PoolIntArray( 141, 140, 139 ), PoolIntArray( 147, 146, 142 ), PoolIntArray( 142, 146, 143 ), PoolIntArray( 143, 146, 144 ), PoolIntArray( 144, 146, 145 ), PoolIntArray( 150, 149, 148 ), PoolIntArray( 156, 155, 151 ), PoolIntArray( 151, 155, 154 ), PoolIntArray( 151, 154, 152 ), PoolIntArray( 152, 154, 153 ), PoolIntArray( 160, 159, 157 ), PoolIntArray( 157, 159, 158 ), PoolIntArray( 164, 163, 161 ), PoolIntArray( 161, 163, 162 ), PoolIntArray( 168, 167, 165 ), PoolIntArray( 165, 167, 166 ), PoolIntArray( 172, 171, 169 ), PoolIntArray( 169, 171, 170 ), PoolIntArray( 178, 177, 173 ), PoolIntArray( 173, 177, 174 ), PoolIntArray( 174, 177, 176 ), PoolIntArray( 174, 176, 175 ), PoolIntArray( 181, 180, 179 ), PoolIntArray( 184, 183, 182 ), PoolIntArray( 188, 187, 185 ), PoolIntArray( 185, 187, 186 ), PoolIntArray( 194, 193, 189 ), PoolIntArray( 189, 193, 190 ), PoolIntArray( 190, 193, 191 ), PoolIntArray( 191, 193, 192 ), PoolIntArray( 198, 197, 195 ), PoolIntArray( 195, 197, 196 ), PoolIntArray( 202, 201, 199 ), PoolIntArray( 199, 201, 200 ), PoolIntArray( 205, 204, 203 ), PoolIntArray( 211, 210, 206 ), PoolIntArray( 206, 210, 207 ), PoolIntArray( 207, 210, 209 ), PoolIntArray( 207, 209, 208 ), PoolIntArray( 214, 213, 212 ), PoolIntArray( 219, 218, 215 ), PoolIntArray( 215, 218, 216 ), PoolIntArray( 216, 218, 217 ), PoolIntArray( 222, 221, 220 ), PoolIntArray( 225, 224, 223 ), PoolIntArray( 228, 227, 226 ), PoolIntArray( 231, 230, 229 ), PoolIntArray( 234, 233, 232 ), PoolIntArray( 239, 241, 240 ), PoolIntArray( 240, 241, 235 ), PoolIntArray( 235, 241, 236 ), PoolIntArray( 236, 241, 237 ), PoolIntArray( 237, 241, 238 ), PoolIntArray( 238, 241, 239 ), PoolIntArray( 244, 243, 242 ), PoolIntArray( 247, 246, 245 ), PoolIntArray( 251, 250, 248 ), PoolIntArray( 248, 250, 249 ), PoolIntArray( 255, 254, 252 ), PoolIntArray( 252, 254, 253 ), PoolIntArray( 258, 257, 256 ), PoolIntArray( 261, 260, 259 ), PoolIntArray( 264, 263, 262 ), PoolIntArray( 268, 267, 265 ), PoolIntArray( 265, 267, 266 ), PoolIntArray( 272, 271, 269 ), PoolIntArray( 269, 271, 270 ), PoolIntArray( 275, 274, 273 ), PoolIntArray( 280, 279, 276 ), PoolIntArray( 276, 279, 277 ), PoolIntArray( 277, 279, 278 ), PoolIntArray( 285, 284, 281 ), PoolIntArray( 281, 284, 283 ), PoolIntArray( 281, 283, 282 ), PoolIntArray( 289, 288, 286 ), PoolIntArray( 286, 288, 287 ), PoolIntArray( 293, 292, 290 ), PoolIntArray( 290, 292, 291 ), PoolIntArray( 297, 296, 294 ), PoolIntArray( 294, 296, 295 ), PoolIntArray( 300, 299, 298 ), PoolIntArray( 306, 305, 301 ), PoolIntArray( 301, 305, 302 ), PoolIntArray( 302, 305, 303 ), PoolIntArray( 303, 305, 304 ), PoolIntArray( 312, 311, 307 ), PoolIntArray( 307, 311, 308 ), PoolIntArray( 308, 311, 309 ), PoolIntArray( 309, 311, 310 ), PoolIntArray( 315, 314, 313 ), PoolIntArray( 318, 317, 316 ), PoolIntArray( 322, 321, 319 ), PoolIntArray( 319, 321, 320 ), PoolIntArray( 325, 324, 323 ), PoolIntArray( 331, 330, 326 ), PoolIntArray( 326, 330, 329 ), PoolIntArray( 326, 329, 327 ), PoolIntArray( 327, 329, 328 ), PoolIntArray( 335, 334, 332 ), PoolIntArray( 332, 334, 333 ), PoolIntArray( 340, 339, 336 ), PoolIntArray( 336, 339, 337 ), PoolIntArray( 337, 339, 338 ), PoolIntArray( 343, 342, 341 ), PoolIntArray( 346, 345, 344 ), PoolIntArray( 349, 348, 347 ), PoolIntArray( 353, 352, 350 ), PoolIntArray( 350, 352, 351 ), PoolIntArray( 356, 355, 354 ), PoolIntArray( 359, 358, 357 ), PoolIntArray( 363, 362, 360 ), PoolIntArray( 360, 362, 361 ), PoolIntArray( 367, 366, 364 ), PoolIntArray( 364, 366, 365 ), PoolIntArray( 370, 369, 368 ), PoolIntArray( 375, 374, 371 ), PoolIntArray( 371, 374, 372 ), PoolIntArray( 372, 374, 373 ), PoolIntArray( 378, 377, 376 ), PoolIntArray( 381, 380, 379 ), PoolIntArray( 385, 384, 382 ), PoolIntArray( 382, 384, 383 ), PoolIntArray( 390, 389, 386 ), PoolIntArray( 386, 389, 387 ), PoolIntArray( 387, 389, 388 ), PoolIntArray( 394, 393, 391 ), PoolIntArray( 391, 393, 392 ), PoolIntArray( 398, 397, 395 ), PoolIntArray( 395, 397, 396 ), PoolIntArray( 402, 401, 399 ), PoolIntArray( 399, 401, 400 ), PoolIntArray( 405, 404, 403 ), PoolIntArray( 409, 408, 406 ), PoolIntArray( 406, 408, 407 ), PoolIntArray( 412, 411, 410 ), PoolIntArray( 418, 417, 413 ), PoolIntArray( 413, 417, 414 ), PoolIntArray( 414, 417, 415 ), PoolIntArray( 415, 417, 416 ), PoolIntArray( 421, 420, 419 ), PoolIntArray( 424, 423, 422 ), PoolIntArray( 427, 426, 425 ), PoolIntArray( 430, 429, 428 ), PoolIntArray( 434, 433, 431 ), PoolIntArray( 431, 433, 432 ), PoolIntArray( 440, 439, 435 ), PoolIntArray( 435, 439, 438 ), PoolIntArray( 435, 438, 436 ), PoolIntArray( 436, 438, 437 ), PoolIntArray( 444, 443, 441 ), PoolIntArray( 441, 443, 442 ), PoolIntArray( 447, 446, 445 ), PoolIntArray( 452, 451, 448 ), PoolIntArray( 448, 451, 449 ), PoolIntArray( 449, 451, 450 ), PoolIntArray( 455, 454, 453 ), PoolIntArray( 460, 459, 456 ), PoolIntArray( 456, 459, 457 ), PoolIntArray( 457, 459, 458 ), PoolIntArray( 465, 464, 461 ), PoolIntArray( 461, 464, 462 ), PoolIntArray( 462, 464, 463 ), PoolIntArray( 468, 467, 466 ), PoolIntArray( 471, 470, 469 ), PoolIntArray( 476, 475, 472 ), PoolIntArray( 472, 475, 473 ), PoolIntArray( 473, 475, 474 ), PoolIntArray( 481, 480, 477 ), PoolIntArray( 477, 480, 479 ), PoolIntArray( 477, 479, 478 ), PoolIntArray( 486, 485, 482 ), PoolIntArray( 482, 485, 484 ), PoolIntArray( 482, 484, 483 ), PoolIntArray( 490, 489, 487 ), PoolIntArray( 487, 489, 488 ), PoolIntArray( 495, 494, 491 ), PoolIntArray( 491, 494, 492 ), PoolIntArray( 492, 494, 493 ), PoolIntArray( 498, 497, 496 ), PoolIntArray( 501, 500, 499 ), PoolIntArray( 506, 505, 502 ), PoolIntArray( 502, 505, 504 ), PoolIntArray( 502, 504, 503 ), PoolIntArray( 510, 509, 507 ), PoolIntArray( 507, 509, 508 ), PoolIntArray( 514, 513, 511 ), PoolIntArray( 511, 513, 512 ), PoolIntArray( 517, 516, 515 ), PoolIntArray( 521, 520, 518 ), PoolIntArray( 518, 520, 519 ), PoolIntArray( 526, 525, 522 ), PoolIntArray( 522, 525, 523 ), PoolIntArray( 523, 525, 524 ), PoolIntArray( 529, 528, 527 ) ]
+cell/size = 0.1
+cell/height = 0.1
+agent/height = 0.2
+agent/radius = 1.5
+agent/max_climb = 0.1
+
+[sub_resource type="CubeMesh" id=4]
 size = Vector3( 50, 5, 50 )
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=5]
 extents = Vector3( 25, 2.5, 25 )
+
+[sub_resource type="CubeMesh" id=6]
+
+[sub_resource type="BoxShape" id=7]
 
 [node name="World" type="Spatial"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
-[node name="Ground" type="MeshInstance" parent="."]
-mesh = SubResource( 3 )
+[node name="Navigation" type="Navigation" parent="."]
+
+[node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
+navmesh = SubResource( 3 )
+
+[node name="Ground" type="MeshInstance" parent="Navigation/NavigationMeshInstance"]
+mesh = SubResource( 4 )
 material/0 = ExtResource( 1 )
 
-[node name="StaticBody" type="StaticBody" parent="Ground"]
+[node name="StaticBody" type="StaticBody" parent="Navigation/NavigationMeshInstance/Ground"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Ground/StaticBody"]
-shape = SubResource( 4 )
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Ground/StaticBody"]
+shape = SubResource( 5 )
+
+[node name="Spaceport" type="Spatial" parent="Navigation/NavigationMeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7637, 2.82357, -9.83026 )
+
+[node name="SpaceportMainWhippleShield" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport"]
+mesh = ExtResource( 2 )
+material/0 = null
+material/1 = null
+
+[node name="AirlockMeasure001" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( -4.37114e-08, -1, 4.37114e-08, 5.96046e-08, -4.37114e-08, -1, 1, -4.37114e-08, 5.96046e-08, -2.99466, 0.0372314, 0 )
+mesh = ExtResource( 3 )
+
+[node name="AirlockNew" type="Spatial" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, 0.513641, 0.164795, -3.08154 )
+
+[node name="Scene" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/AirlockNew" instance=ExtResource( 4 )]
+
+[node name="AirlockNew001" type="Spatial" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, -0.437531, 0.164795, -3.08154 )
+
+[node name="Scene" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/AirlockNew001" instance=ExtResource( 4 )]
+
+[node name="AirlockNew002" type="Spatial" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( -4.37114e-08, 5.96047e-09, 1, -5.96047e-09, 1, -5.96047e-09, -1, -5.96047e-09, -4.37114e-08, -6.35452, 0.0551758, -2.75122 )
+
+[node name="Scene" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/AirlockNew002" instance=ExtResource( 4 )]
+
+[node name="AirlockNew003" type="Spatial" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( -4.37114e-08, 5.96047e-09, 1, -5.96047e-09, 1, -5.96047e-09, -1, -5.96047e-09, -4.37114e-08, -6.35452, 0.0551758, -1.75122 )
+
+[node name="Scene" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/AirlockNew003" instance=ExtResource( 4 )]
+
+[node name="AirlockNew004" type="Spatial" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( -4.37114e-08, 5.96047e-09, 1, -5.96047e-09, 1, -5.96047e-09, -1, -5.96047e-09, -4.37114e-08, -6.35452, 0.0551758, -0.751221 )
+
+[node name="Scene" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/AirlockNew004" instance=ExtResource( 4 )]
+
+[node name="AirlockNew005" type="Spatial" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( -4.37114e-08, 5.96047e-09, 1, -5.96047e-09, 1, -5.96047e-09, -1, -5.96047e-09, -4.37114e-08, -6.35452, 0.0551758, 0.248779 )
+
+[node name="Scene" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/AirlockNew005" instance=ExtResource( 4 )]
+
+[node name="AirlockNew006" type="Spatial" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, 0.0385437, 0.977051, -3.08228 )
+
+[node name="Scene" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/AirlockNew006" instance=ExtResource( 4 )]
+
+[node name="AirlockStructure001" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield" groups=[
+"wall",
+]]
+transform = Transform( -4.37114e-08, -1, 4.37114e-08, 5.96046e-08, -4.37114e-08, -1, 1, -4.37114e-08, 5.96046e-08, -3.08841, 0.0372314, 0 )
+mesh = ExtResource( 5 )
+material/0 = null
+
+[node name="AirlockStructure001_col" type="StaticBody" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/AirlockStructure001"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/AirlockStructure001/AirlockStructure001_col"]
+shape = ExtResource( 6 )
+
+[node name="Empty_ShuttleProp" type="Spatial" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, 2.72629, 0.570923, -6.94733 )
+
+[node name="Scene" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/Empty_ShuttleProp" instance=ExtResource( 7 )]
+
+[node name="Empty_ShuttleProp001" type="Spatial" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( -4.37114e-08, 5.96047e-09, 1, -5.96047e-09, 1, -5.96047e-09, -1, -5.96047e-09, -4.37114e-08, -7.29655, 1.43726, -6.4738 )
+
+[node name="Scene" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/Empty_ShuttleProp001" instance=ExtResource( 7 )]
+
+[node name="Empty_ShuttleProp002" type="Spatial" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0385437, 0.570923, -6.41968 )
+
+[node name="Scene" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/Empty_ShuttleProp002" instance=ExtResource( 7 )]
+
+[node name="InitialColonyGrounds005" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield" groups=[
+"wall",
+]]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, 9.20261, -0.0895996, -7.95776 )
+mesh = ExtResource( 8 )
+material/0 = null
+
+[node name="InitialColonyGrounds005_col" type="StaticBody" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/InitialColonyGrounds005"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/InitialColonyGrounds005/InitialColonyGrounds005_col"]
+shape = ExtResource( 9 )
+
+[node name="InitialColonyGrounds006" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, 14.1181, -0.0476074, -7.94702 )
+mesh = ExtResource( 10 )
+material/0 = null
+
+[node name="NuclearEngineStorage" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield" groups=[
+"cs",
+]]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, -2.47391, 0.592041, -11.1559 )
+mesh = ExtResource( 11 )
+material/0 = null
+
+[node name="NuclearEngineStorage_col" type="StaticBody" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/NuclearEngineStorage"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/NuclearEngineStorage/NuclearEngineStorage_col"]
+shape = ExtResource( 12 )
+
+[node name="Spaceport-FuelBuildingInsulationFrame" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, 11.8344, -1.33289, -2.06177 )
+mesh = ExtResource( 13 )
+material/0 = null
+
+[node name="Spaceport-FuelingStation" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield" groups=[
+"cs",
+]]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, 6.56589, -0.224243, -10.488 )
+mesh = ExtResource( 14 )
+material/0 = null
+
+[node name="Spaceport-FuelingStation_col" type="StaticBody" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/Spaceport-FuelingStation"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/Spaceport-FuelingStation/Spaceport-FuelingStation_col"]
+shape = ExtResource( 15 )
+
+[node name="Spaceport-H2-TankPipe" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, 7.01462, -2.24744, -10.5596 )
+mesh = ExtResource( 16 )
+material/0 = null
+
+[node name="Spaceport-H2Tank" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, -5.96047e-09, -5.96047e-09, -5.96047e-09, -4.37114e-08, -1, 5.96047e-09, 1, -4.37114e-08, 9.01462, -2.24744, -9.87451 )
+mesh = ExtResource( 17 )
+material/0 = null
+
+[node name="Spaceport-OxyTankPipe" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 0.668304, 5.96047e-09, -0.743889, -5.96047e-09, 1, 2.65774e-09, 0.743889, 2.65774e-09, 0.668304, 8.24069, -1.39612, -5.58032 )
+mesh = ExtResource( 18 )
+material/0 = null
+
+[node name="SpaceportDocks-Building" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield" groups=[
+"wall",
+]]
+transform = Transform( 1, -5.96047e-09, -5.96047e-09, -5.96047e-09, -4.37114e-08, -1, 5.96047e-09, 1, -4.37114e-08, -4.66898, 0.0493164, 0.306885 )
+mesh = ExtResource( 19 )
+material/0 = null
+
+[node name="SpaceportDocks-Building_col" type="StaticBody" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/SpaceportDocks-Building"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/SpaceportDocks-Building/SpaceportDocks-Building_col"]
+shape = ExtResource( 20 )
+
+[node name="SpaceportDocksProtection" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield" groups=[
+"cs",
+]]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, -4.68561, 1.53137, -1.72229 )
+mesh = ExtResource( 21 )
+material/0 = null
+material/1 = null
+
+[node name="SpaceportDocksProtection_col" type="StaticBody" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/SpaceportDocksProtection"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/SpaceportDocksProtection/SpaceportDocksProtection_col"]
+shape = ExtResource( 22 )
+
+[node name="SpacePortMain000" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, -3.05176e-05, 1.6239, 0 )
+mesh = ExtResource( 23 )
+material/0 = null
+
+[node name="SpacePortMain001" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield" groups=[
+"floor",
+]]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, -3.05176e-05, 1.6239, 0 )
+mesh = ExtResource( 24 )
+material/0 = null
+
+[node name="SpacePortMain001_col" type="StaticBody" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/SpacePortMain001"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/SpacePortMain001/SpacePortMain001_col"]
+shape = ExtResource( 25 )
+
+[node name="SpacePortMain002" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield" groups=[
+"wall",
+]]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, -3.05176e-05, 1.6239, 0 )
+mesh = ExtResource( 26 )
+material/0 = null
+
+[node name="SpacePortMain002_col" type="StaticBody" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/SpacePortMain002"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/SpacePortMain002/SpacePortMain002_col"]
+shape = ExtResource( 27 )
+
+[node name="SpacePortMain003" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, -3.05176e-05, 1.6239, 0 )
+mesh = ExtResource( 28 )
+material/0 = null
+
+[node name="SpaceportMainWhippleShieldSupports" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 0.923879, 5.96047e-09, -0.382684, -5.96047e-09, 1, 1.18561e-09, 0.382684, 1.18561e-09, 0.923879, -3.05176e-05, 1.46497, 0 )
+mesh = ExtResource( 29 )
+material/0 = null
+
+[node name="SpaceportMainWhippleShieldSupports005" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, -1.64896, -0.450684, -3.96973 )
+mesh = ExtResource( 30 )
+material/0 = null
+
+[node name="SpaceportOxyTank" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 5.96047e-09, 0, -5.96047e-09, 1, 0, 0, 0, 1, 8.24069, -3.85327, -5.58032 )
+mesh = ExtResource( 31 )
+material/0 = null
+
+[node name="SpaceportTarp" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, -5.96047e-09, -5.96047e-09, -5.96047e-09, -4.37114e-08, -1, 5.96047e-09, 1, -4.37114e-08, 5.40671, 2.79651, -8.25244 )
+mesh = ExtResource( 32 )
+material/0 = null
+
+[node name="SpaceportTarpTowers" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.40671, -0.380493, -11.2112 )
+mesh = ExtResource( 33 )
+material/0 = null
+
+[node name="SpaceportWhippleShieldSupports" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( -0.595038, -0.803698, 0, 0.803698, -0.595038, 0, 0, 0, 1, -3.43851, 1.06641, -2.03052 )
+mesh = ExtResource( 34 )
+material/0 = null
+
+[node name="Truss-Triangular002" type="MeshInstance" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, -5.96047e-09, -5.96047e-09, -5.96047e-09, -4.37114e-08, -1, 5.96047e-09, 1, -4.37114e-08, 5.40671, 2.78455, -11.2112 )
+mesh = ExtResource( 35 )
+material/0 = null
+
+[node name="WindowHexpane" type="Spatial" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.05176e-05, 2.51978, 0 )
+
+[node name="Scene" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield/WindowHexpane" instance=ExtResource( 36 )]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, -0.0171726, 0 )
+
+[node name="OmniLight" type="OmniLight" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+
+[node name="OmniLight2" type="OmniLight" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.87885, 0, -1.72316 )
+omni_range = 3.37895
+
+[node name="OmniLight3" type="OmniLight" parent="Navigation/NavigationMeshInstance/Spaceport/SpaceportMainWhippleShield"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.87885, 2.05836, -8.21762 )
+light_energy = 0.4
+omni_range = 10.718
+
+[node name="AirlockBase" parent="Navigation/NavigationMeshInstance" instance=ExtResource( 37 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98058, 16.5696 )
+
+[node name="Obstacle" type="MeshInstance" parent="Navigation/NavigationMeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.35319, 3.48026, 2.04999 )
+mesh = SubResource( 6 )
+material/0 = ExtResource( 42 )
+
+[node name="StaticBody" type="StaticBody" parent="Navigation/NavigationMeshInstance/Obstacle"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/Obstacle/StaticBody"]
+shape = SubResource( 7 )
+
+[node name="InvisibleObstacle" type="MeshInstance" parent="Navigation/NavigationMeshInstance"]
+transform = Transform( 0.28539, 0, 0, 0, 1, 0, 0, 0, 1, -2.11575, 3.48026, -2.39723 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Navigation/NavigationMeshInstance/InvisibleObstacle"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/InvisibleObstacle/StaticBody"]
+shape = SubResource( 7 )
+
+[node name="InvisibleObstacle2" type="MeshInstance" parent="Navigation/NavigationMeshInstance"]
+transform = Transform( 0.28539, 0, 0, 0, 1, 0, 0, 0, 1, 2.13902, 3.48026, -2.54652 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Navigation/NavigationMeshInstance/InvisibleObstacle2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/InvisibleObstacle2/StaticBody"]
+shape = SubResource( 7 )
+
+[node name="InvisibleObstacle3" type="MeshInstance" parent="Navigation/NavigationMeshInstance"]
+transform = Transform( -1.24748e-08, 0, -1, 0, 1, 0, 0.28539, 0, -4.37114e-08, -0.0342348, 3.48026, 1.40871 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Navigation/NavigationMeshInstance/InvisibleObstacle3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Navigation/NavigationMeshInstance/InvisibleObstacle3/StaticBody"]
+shape = SubResource( 7 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.756658, -0.611205, 0.232156, 0, 0.355081, 0.934835, -0.653811, -0.707351, 0.268675, 0, 4.75339, 0 )
 shadow_enabled = true
 
-[node name="Scene" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.63423, -2.26611 )
+[node name="PassengerPod" parent="." instance=ExtResource( 39 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.84016, 3.30579, 13.6116 )
 
-[node name="Scene2" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.79829, -2.28389 )
+[node name="LocalPlayer" parent="." instance=ExtResource( 40 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5003, 0.289028 )
 
-[node name="LocalPlayer" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5003, 0 )
+[node name="Rover2" parent="." instance=ExtResource( 41 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.58138, -11.9914 )
+pod_path = NodePath("../TourPod")
+nav_path = NodePath("../Navigation")
 
-[editable path="Scene"]
+[node name="TourPod" parent="." instance=ExtResource( 38 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00441647, 2.72664, -1.70401 )
+target_location = NodePath("../Position3D")
+
+[node name="Position3D" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8828, 2.7434, 13.3327 )

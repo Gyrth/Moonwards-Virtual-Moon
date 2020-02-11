@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/Rover/Rover.gd" type="Script" id=1]
+[ext_resource path="res://assets/Rover/AthleteRover.glb" type="PackedScene" id=2]
+
+[sub_resource type="CapsuleShape" id=12]
+radius = 0.1
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "Rover_Parked"
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "Rover_RideHigh"
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "Rover_RideLow"
+
+[sub_resource type="AnimationNodeTransition" id=16]
+input_count = 3
+xfade_time = 2.0
+input_0/name = "RideLow"
+input_0/auto_advance = false
+input_1/name = "RideMedium"
+input_1/auto_advance = false
+input_2/name = "RideHigh"
+input_2/auto_advance = false
+
+[sub_resource type="AnimationNodeBlendTree" id=18]
+graph_offset = Vector2( 20, 96 )
+nodes/Animation/node = SubResource( 17 )
+nodes/Animation/position = Vector2( 160, 40 )
+"nodes/Animation 2/node" = SubResource( 13 )
+"nodes/Animation 2/position" = Vector2( 160, 180 )
+"nodes/Animation 3/node" = SubResource( 14 )
+"nodes/Animation 3/position" = Vector2( 160, 320 )
+nodes/RideHeight/node = SubResource( 16 )
+nodes/RideHeight/position = Vector2( 540, 120 )
+nodes/output/position = Vector2( 860, 180 )
+node_connections = [ "output", 0, "RideHeight", "RideHeight", 0, "Animation", "RideHeight", 1, "Animation 2", "RideHeight", 2, "Animation 3" ]
+
+[node name="Rover" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="KinematicBody" type="KinematicBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 1.14611, 0.589911, 0 )
+shape = SubResource( 12 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, -1.14679, 0.589911, 0 )
+shape = SubResource( 12 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, -0.852327, 0.589911, -1.13464 )
+shape = SubResource( 12 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0.829061, 0.589911, -1.1373 )
+shape = SubResource( 12 )
+
+[node name="CollisionShape6" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, -0.852327, 0.589911, 1.11783 )
+shape = SubResource( 12 )
+
+[node name="CollisionShape5" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0.852451, 0.589911, 1.11518 )
+shape = SubResource( 12 )
+
+[node name="AthleteRover" parent="KinematicBody" instance=ExtResource( 2 )]
+
+[node name="Skeleton" parent="KinematicBody/AthleteRover/LegsArmature001" index="0"]
+bones/6/bound_children = [ NodePath("RootBoneAttachment") ]
+
+[node name="RootBoneAttachment" type="BoneAttachment" parent="KinematicBody/AthleteRover/LegsArmature001/Skeleton" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.247668, 0.583227, -0.235315 )
+bone_name = "root"
+
+[node name="AnimationTree" type="AnimationTree" parent="KinematicBody"]
+tree_root = SubResource( 18 )
+anim_player = NodePath("../AthleteRover/AnimationPlayer")
+active = true
+parameters/RideHeight/current = 0
+
+[editable path="KinematicBody/AthleteRover"]

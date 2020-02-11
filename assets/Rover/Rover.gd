@@ -1,0 +1,114 @@
+extends Spatial
+
+const MOVEMENT_SPEED : float = 10.0
+const MAX_SPEED : float = 3.0
+const TURN_SPEED : float = 1.0
+
+onready var animation_tree : AnimationTree = $KinematicBody/AnimationTree
+onready var model : Node = $KinematicBody/AthleteRover
+onready var kinematic_body : Node = $KinematicBody
+onready var root_bone_attachment : BoneAttachment = $KinematicBody/AthleteRover/LegsArmature001/Skeleton/RootBoneAttachment
+
+export(NodePath) var pod_path
+onready var pod = get_node(pod_path)
+export(NodePath) var nav_path
+onready var navigation : Navigation = get_node(nav_path)
+
+const idle = 0
+const moving = 1
+const docked = 2
+const undocking = 3
+const waiting = 4
+const retrieve_pod = 5
+const deliver_pod = 6
+const done = 7
+
+var state = idle
+
+var _movement_force : Vector3 = Vector3()
+var _jump_force : Vector3 = Vector3()
+var _look_direction : Vector2 = Vector2()
+var _movement_direction : Vector3 = Vector3(0,0,0)
+var _kb_quat : Quat = Quat()
+var _nav_targets : PoolVector3Array = PoolVector3Array()
+
+func _ready() -> void:
+	_movement_direction = global_transform.basis.z
+
+func _physics_process(delta : float) -> void:
+	_update_state(delta)
+
+func _update_state(delta : float) -> void:
+	if state == idle:
+		if pod != null:
+			#Go get the pod if assigned one.
+			_calculate_path(pod.global_transform.origin)
+			state = retrieve_pod
+			pass
+	elif state == retrieve_pod:
+		if _update_movement(delta):
+			var old_transform = pod.global_transform
+			pod.get_parent().remove_child(pod)
+			root_bone_attachment.add_child(pod)
+			pod.global_transform = old_transform
+			state = docked
+	elif state == done:
+		pass
+	elif state == docked:
+		if pod.ready_to_leave:
+			animation_tree.set("parameters/RideHeight/current", 2)
+			yield(get_tree().create_timer(2.0), "timeout")
+			_calculate_path(pod.target_delivery_point)
+			state = deliver_pod
+	elif state == deliver_pod:
+		if _update_movement(delta):
+			animation_tree.set("parameters/RideHeight/current", 0)
+			yield(get_tree().create_timer(2.0), "timeout")
+			var old_transform = pod.global_transform
+			root_bone_attachment.remove_child(pod)
+			get_parent().add_child(pod)
+			pod.global_transform = old_transform
+			pod.delivered()
+			state = done
+
+func _calculate_path(target_point : Vector3):
+	var starting_point = navigation.get_closest_point(kinematic_body.global_transform.origin)
+	var end_point = navigation.get_closest_point(target_point)
+	
+	_nav_targets = navigation.get_simple_path(starting_point, end_point, true)
+
+func _update_movement(delta : float) -> bool:
+	if _nav_targets.empty():
+		return true
+	
+	var current_position_on_navmesh = navigation.get_closest_point(kinematic_body.global_transform.origin)
+	if _nav_targets[0].distance_to(current_position_on_navmesh) < 0.1:
+		_nav_targets.remove(0)
+		return false
+	
+	_movement_direction = (_nav_targets[0] - kinematic_body.global_transform.origin).normalized()
+	_movement_direction.y = 0.0
+	
+	if (_movement_force + _movement_direction).length() > MAX_SPEED:
+		_movement_force = (_movement_force + _movement_direction).normalized() * MAX_SPEED
+	else:
+		_movement_force += _movement_direction
+	
+	var movement_velocity = _movement_force * MOVEMENT_SPEED * delta
+	var jump_velocity = _jump_force * delta
+	var gravity_velocity = Vector3(0.0, -1.62, 0.0)
+	kinematic_body.move_and_slide(movement_velocity + jump_velocity + gravity_velocity)
+	
+	_movement_force *= 0.95
+	_jump_force *= 0.95
+	
+	if _movement_force.length() > 0.2:
+		var flat_force = _movement_force
+		flat_force.y = 0.0
+		flat_force = flat_force.normalized()
+		if flat_force != Vector3():
+			var target_transform = kinematic_body.global_transform.looking_at(kinematic_body.global_transform.origin - flat_force, Vector3(0, 1, 0))
+			_kb_quat = _kb_quat.slerp(Quat(target_transform.basis), delta * TURN_SPEED)
+			kinematic_body.global_transform.basis = Basis(_kb_quat)
+	
+	return false
