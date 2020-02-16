@@ -52,6 +52,7 @@ func _update_state(delta : float) -> void:
 			root_bone_attachment.add_child(pod.body)
 			pod.body.global_transform = old_transform
 			state = docked
+			pod.rover_present = true
 	elif state == done:
 		pass
 	elif state == docked:
@@ -67,7 +68,7 @@ func _update_state(delta : float) -> void:
 			yield(get_tree().create_timer(2.0), "timeout")
 			var old_transform = pod.body.global_transform
 			root_bone_attachment.remove_child(pod.body)
-			get_parent().add_child(pod.body)
+			pod.add_child(pod.body)
 			pod.body.global_transform = old_transform
 			pod.delivered()
 

@@ -8,6 +8,7 @@ onready var kinematic_body = get_node(kinematic_body_path)
 onready var pivot = $Pivot
 onready var camera_target = $Pivot/CameraTarget
 onready var look_target = $Pivot/LookTarget
+onready var raycast = $RayCast
 onready var camera = get_node(kinematic_body_camera)
 var current_look_position = Vector3()
 export (bool) var enabled = false
@@ -15,7 +16,6 @@ export (float) var default_zoom_distance = 0.25
 export (float) var max_zoom_distance = 1.0
 export (float) var min_zoom_distance = 0.15
 export (float) var zoom_step_size = 0.05
-var excluded_bodies = []
 var look_direction = Vector2()
 var mouse_sensitivity = 0.10
 var max_up_aim_angle = 55.0
@@ -27,7 +27,7 @@ func _ready():
 	camera.global_transform.origin = camera_target.global_transform.origin
 	current_look_position = look_target.global_transform.origin
 	camera.look_at(current_look_position, Vector3(0,1,0))
-	excluded_bodies.append(kinematic_body)
+	raycast.add_exception(kinematic_body)
 	camera_target.translation.z = default_zoom_distance
 	set_camera_control(enabled)
 
@@ -81,14 +81,14 @@ func _physics_process(delta):
 	var to = camera_target.global_transform.origin
 	var local_to = camera_target.translation
 	
-	var col = get_world().direct_space_state.intersect_ray(from, to, excluded_bodies)
+	raycast.cast_to = raycast.to_local(to)
 	
 	var target_position = to
-	if not col.empty():
-		if col.collider.is_in_group("no_camera_collide"):
-			excluded_bodies.append(col.collider)
+	if raycast.is_colliding():
+		if raycast.get_collider().is_in_group("no_camera_collide"):
+			raycast.add_exception(raycast.get_collider())
 			return
-		var raycast_offset = col.position.distance_to(from)
+		var raycast_offset = raycast.get_collision_point().distance_to(from)
 		if local_to.z > raycast_offset:
 			target_position = pivot.to_global(Vector3(0, 0, max(0.05, raycast_offset - 0.15)))
 	
