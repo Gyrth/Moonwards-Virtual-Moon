@@ -2,7 +2,7 @@ extends Spatial
 
 const MOVEMENT_SPEED : float = 10.0
 const MAX_SPEED : float = 3.0
-const TURN_SPEED : float = 1.0
+const TURN_SPEED : float = 0.5
 
 onready var animation_tree : AnimationTree = $KinematicBody/AnimationTree
 onready var model : Node = $KinematicBody/AthleteRover
@@ -29,7 +29,8 @@ var _movement_force : Vector3 = Vector3()
 var _jump_force : Vector3 = Vector3()
 var _look_direction : Vector2 = Vector2()
 var _movement_direction : Vector3 = Vector3(0,0,0)
-var _kb_quat : Quat = Quat()
+var _kb_basis : Basis = Basis()
+var _target_location : Transform = Transform()
 var _nav_targets : PoolVector3Array = PoolVector3Array()
 
 func _ready() -> void:
@@ -42,7 +43,7 @@ func _update_state(delta : float) -> void:
 	if state == idle:
 		if pod != null:
 			#Go get the pod if assigned one.
-			_calculate_path(pod.body.global_transform.origin)
+			_calculate_path(pod.body.global_transform)
 			state = retrieve_pod
 			pass
 	elif state == retrieve_pod:
@@ -59,7 +60,7 @@ func _update_state(delta : float) -> void:
 		if pod.ready_to_leave:
 			animation_tree.set("parameters/RideHeight/current", 2)
 			yield(get_tree().create_timer(2.0), "timeout")
-			_calculate_path(pod.target_delivery_point)
+			_calculate_path(pod.target_delivery)
 			state = deliver_pod
 	elif state == deliver_pod:
 		if _update_movement(delta):
@@ -72,20 +73,38 @@ func _update_state(delta : float) -> void:
 			pod.body.global_transform = old_transform
 			pod.delivered()
 
-func _calculate_path(target_point : Vector3):
+func _calculate_path(new_target_location : Transform):
+	_target_location = new_target_location
 	var starting_point = navigation.get_closest_point(kinematic_body.global_transform.origin)
-	var end_point = navigation.get_closest_point(target_point)
+	var end_point = navigation.get_closest_point(_target_location.origin)
 	
 	_nav_targets = navigation.get_simple_path(starting_point, end_point, true)
 
+func _check_equal_approx(var a : Basis, var b : Basis):
+	var tolerance = 0.05
+	if(_check_equal_approx_vector3(a.x, b.x, tolerance) && _check_equal_approx_vector3(a.y, b.y, tolerance) && _check_equal_approx_vector3(a.z, b.z, tolerance)):
+		return true
+	else:
+		return false
+
+func _check_equal_approx_vector3(var a : Vector3, var b : Vector3, var tolerance : float) -> bool:
+	if(_check_equal_approx_float(a.x, b.x, tolerance) && _check_equal_approx_float(a.y, b.y, tolerance) && _check_equal_approx_float(a.z, b.z, tolerance)):
+		return true
+	else:
+		return false
+
+func _check_equal_approx_float(var a : float, var b : float, var tolerance : float) -> bool:
+	return abs(a - b) < tolerance;
+
 func _update_movement(delta : float) -> bool:
 	if _nav_targets.empty():
-		return true
-	
-	var current_position_on_navmesh = navigation.get_closest_point(kinematic_body.global_transform.origin)
-	if _nav_targets[0].distance_to(current_position_on_navmesh) < 0.1:
-		_nav_targets.remove(0)
-		return false
+		_kb_basis = _kb_basis.slerp(_target_location.basis, delta * TURN_SPEED)
+		model.global_transform.basis = _kb_basis
+		
+		if _check_equal_approx(_kb_basis, _target_location.basis):
+			return true
+		else:
+			return false
 	
 	_movement_direction = (_nav_targets[0] - kinematic_body.global_transform.origin).normalized()
 	_movement_direction.y = 0.0
@@ -103,13 +122,18 @@ func _update_movement(delta : float) -> bool:
 	_movement_force *= 0.95
 	_jump_force *= 0.95
 	
+	var current_position_on_navmesh = navigation.get_closest_point(kinematic_body.global_transform.origin)
+	if _nav_targets[0].distance_to(current_position_on_navmesh) < 0.1:
+		_nav_targets.remove(0)
+		return false
+	
 	if _movement_force.length() > 0.2:
 		var flat_force = _movement_force
 		flat_force.y = 0.0
 		flat_force = flat_force.normalized()
 		if flat_force != Vector3():
 			var target_transform = model.global_transform.looking_at(model.global_transform.origin - flat_force, Vector3(0, 1, 0))
-			_kb_quat = _kb_quat.slerp(Quat(target_transform.basis), delta * TURN_SPEED)
-			model.global_transform.basis = Basis(_kb_quat)
+			_kb_basis = _kb_basis.slerp(target_transform.basis, delta * TURN_SPEED)
+			model.global_transform.basis = _kb_basis
 	
 	return false

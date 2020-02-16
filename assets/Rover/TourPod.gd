@@ -15,7 +15,7 @@ var rover_present : bool = false setget set_rover_present
 var timer : float = 0.0
 var leave_timeout : float = 5.0
 var timer_started : bool = false
-onready var target_delivery_point : Vector3 = get_node(target_location).global_transform.origin
+onready var target_delivery : Transform = get_node(target_location).global_transform
 
 func set_rover_present(var _rover_present):
 	rover_present = _rover_present
