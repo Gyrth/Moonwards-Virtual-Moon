@@ -27,11 +27,7 @@ var motion = Vector2()
 
 #################################
 # Current state of player avatar
-var look_direction = Vector2()
 var ground_normal = Vector3(0.0, -1.0, 0.0)
-var mouse_sensitivity = 0.10
-var max_up_aim_angle = 55.0
-var max_down_aim_angle = 55.0
 var root_motion = Transform()
 var orientation = Transform()
 var velocity = Vector3()
@@ -57,6 +53,10 @@ var id setget SetID
 var nocamera = false
 var jump_timer = 0.0
 onready var model = $KinematicBody/Model
+onready var animation_tree = $KinematicBody/AnimationTree
+onready var on_ground = $KinematicBody/OnGround
+onready var kinematic_body = $KinematicBody
+var frozen : bool = false
 
 const walking = 0
 const flailing = 1
@@ -184,26 +184,7 @@ func SetPScale(scale):
 #################################
 # _process functions
 func _input(event):
-	# FIXME: This should be dealt with elsewhere
 	
-	if PauseMenu.is_open():
-		return
-	
-	if (event is InputEventMouseMotion):
-		look_direction.x -= event.relative.x * mouse_sensitivity
-		look_direction.y -= event.relative.y * mouse_sensitivity
-
-		if look_direction.x > 360:
-			look_direction.x = 0
-		elif look_direction.x < 0:
-			look_direction.x = 360
-		if look_direction.y > max_up_aim_angle:
-			look_direction.y = max_up_aim_angle
-		elif look_direction.y < -max_down_aim_angle:
-			look_direction.y = -max_down_aim_angle
-
-		camera_control.Rotate(look_direction)
-
 	if event.is_action_pressed("move_right"):
 		motion_target.x = motion_target.x + 1.0
 	elif event.is_action_released("move_right"):
@@ -229,12 +210,6 @@ func _input(event):
 			DoInteractiveObjectCheck()
 		else:
 			StopStairsClimb()
-
-	if event.is_action("zoom_in") and not Input.is_action_pressed("move_run"):
-		camera_control.DecreaseDistance()
-
-	if event.is_action("zoom_out") and not Input.is_action_pressed("move_run"):
-		camera_control.IncreaseDistance()
 
 	if event.is_action_pressed("scroll_up") and Input.is_action_pressed("move_run") and animation_speed < 3.0:
 		animation_speed += 0.25
@@ -265,23 +240,24 @@ func _physics_process(delta):
 		SaveRPoints(delta)
 
 func HandleOnGround(delta):
-	if $KinematicBody/OnGround.is_colliding() and in_air:
+	if on_ground.is_colliding() and in_air:
 		in_air = false
 		land = true
 		in_air_accomulate = 0
-		$KinematicBody/OnGround.cast_to.y = -0.1
-	elif not $KinematicBody/OnGround.is_colliding() and not in_air and not climbing_stairs:
+		on_ground.cast_to.y = -0.1
+	elif not on_ground.is_colliding() and not in_air and not climbing_stairs:
 		in_air_accomulate += delta
 		if in_air_accomulate >= IN_AIR_DELTA:
 			in_air = true
-			$KinematicBody/OnGround.cast_to.y = -0.04
+			on_ground.cast_to.y = -0.04
 
 func HandleMovement():
-	$KinematicBody/AnimationTree["parameters/Walk/blend_position"] = motion
-	$KinematicBody/AnimationTree["parameters/MovementSpeed/scale"] = animation_speed
+	animation_tree["parameters/Walk/blend_position"] = motion
+	animation_tree["parameters/MovementSpeed/scale"] = animation_speed
 
 func HandleControls(var delta):
-	if puppet:
+	if puppet or frozen:
+		motion = Vector2()
 		return
 	
 	# FIXME: controls need to be dealt with elsewhere
@@ -296,20 +272,20 @@ func HandleControls(var delta):
 	if jump_timeout > 0.0:
 		jump_timeout -= delta
 		if jump_timeout <= 0.0:
-			$KinematicBody/AnimationTree["parameters/JumpAmount/blend_amount"] = 0.0
+			animation_tree["parameters/JumpAmount/blend_amount"] = 0.0
 			is_jumping = false
 		else:
-			$KinematicBody/AnimationTree["parameters/JumpAmount/blend_amount"] = jump_timeout / 2.0
+			animation_tree["parameters/JumpAmount/blend_amount"] = jump_timeout / 2.0
 	elif jump and not in_air and not climbing_stairs and jump_timer < MAX_JUMP_TIMER:
 		jump = false
 		jump_timer += delta
-		$KinematicBody/AnimationTree["parameters/JumpAmount/blend_amount"] = jump_timer / MAX_JUMP_TIMER
+		animation_tree["parameters/JumpAmount/blend_amount"] = jump_timer / MAX_JUMP_TIMER
 		if not is_jumping:
 			is_jumping = true
 	elif is_jumping:
 		Jump(jump_timer)
 		jump_timer = 0.0
-		$KinematicBody/AnimationTree["parameters/MovementState/current"] = flailing
+		animation_tree["parameters/MovementState/current"] = flailing
 		movementstate = flailing
 
 	if climbing_stairs:
@@ -317,14 +293,14 @@ func HandleControls(var delta):
 		return
 
 	if in_air and movementstate == walking:
-		$KinematicBody/AnimationTree["parameters/MovementState/current"] = flailing
+		animation_tree["parameters/MovementState/current"] = flailing
 		movementstate = flailing
 	elif not in_air and movementstate == flailing and jump_timeout <= 0.0:
-		$KinematicBody/AnimationTree["parameters/MovementState/current"] = walking
+		animation_tree["parameters/MovementState/current"] = walking
 		movementstate = walking
 
 	if land:
-		$KinematicBody/AnimationTree["parameters/Land/active"] = true
+		animation_tree["parameters/Land/active"] = true
 		land = false
 
 	#Only control the character when it is on the floor.
@@ -334,7 +310,7 @@ func HandleControls(var delta):
 	else:
 		pass
 
-	ground_normal = $KinematicBody/OnGround.get_collision_normal()
+	ground_normal = on_ground.get_collision_normal()
 
 	#Update the model rotation based on the camera look direction.
 	var target_direction = -camera_control.camera.global_transform.basis.z
@@ -345,7 +321,7 @@ func HandleControls(var delta):
 
 	if not in_air and not is_jumping:
 		#Retrieve the root motion from the animationtree so it can be applied to the KinematicBody.
-		root_motion = $KinematicBody/AnimationTree.get_root_motion_transform()
+		root_motion = animation_tree.get_root_motion_transform()
 		orientation *= root_motion
 
 		var h_velocity = (orientation.origin / delta) * 0.1 * SPEED_SCALE
@@ -368,7 +344,7 @@ func HandleControls(var delta):
 		#When in the air or jumping apply the normal gravity to the character.
 		velocity += GRAVITY * delta
 
-	velocity = $KinematicBody.move_and_slide(velocity, Vector3(0,1,0), motion_target == Vector2())
+	velocity = kinematic_body.move_and_slide(velocity, Vector3(0,1,0), motion_target == Vector2())
 
 	orientation.origin = Vector3()
 	orientation = orientation.orthonormalized()
@@ -378,7 +354,7 @@ func HandleControls(var delta):
 		model.global_transform.basis = orientation.basis
 
 func UpdateClimbingStairs(var delta):
-	var kb_pos = $KinematicBody.global_transform.origin
+	var kb_pos = kinematic_body.global_transform.origin
 
 	if climb_point % 2 == 0:
 		climb_progress = abs((2.0 if climb_direction > 0.0 else 0.0) - abs((kb_pos.y - stairs.climb_points[climb_point].y) / stairs.step_size))
@@ -393,7 +369,7 @@ func UpdateClimbingStairs(var delta):
 		climb_point -= 1
 
 	if climb_point == stairs.climb_points.size() - 1 and kb_pos.y > stairs.climb_points[climb_point].y and not input_direction <= 0.0:
-		$KinematicBody/AnimationTree["parameters/MovementState/current"] = walking
+		animation_tree["parameters/MovementState/current"] = walking
 
 		motion = motion.linear_interpolate(motion_target, MOTION_INTERPOLATE_SPEED * delta)
 
@@ -405,7 +381,7 @@ func UpdateClimbingStairs(var delta):
 		orientation.basis = model.global_transform.basis.slerp(target_transform.basis, delta * ROTATION_INTERPOLATE_SPEED)
 
 		#Retrieve the root motion from the animationtree so it can be applied to the KinematicBody.
-		root_motion = $KinematicBody/AnimationTree.get_root_motion_transform()
+		root_motion = animation_tree.get_root_motion_transform()
 		orientation *= root_motion
 
 		var h_velocity = (orientation.origin / delta) * 0.1 * SPEED_SCALE
@@ -425,7 +401,7 @@ func UpdateClimbingStairs(var delta):
 		if kb_pos.distance_to(stairs.climb_points[climb_point]) > 0.12:
 			StopStairsClimb()
 	else:
-		$KinematicBody/AnimationTree["parameters/MovementState/current"] = climbing
+		animation_tree["parameters/MovementState/current"] = climbing
 		#Automatically move towards the climbing point horizontally.
 		var flat_velocity = (stairs.climb_points[climb_point] - kb_pos) * delta * 150.0
 		flat_velocity.y = 0.0
@@ -440,32 +416,32 @@ func UpdateClimbingStairs(var delta):
 		StopStairsClimb()
 
 	if input_direction > 0.0:
-		if $KinematicBody/AnimationTree["parameters/ClimbDirection/current"] == 1:
-			$KinematicBody/AnimationTree["parameters/ClimbDirection/current"] = 0
+		if animation_tree["parameters/ClimbDirection/current"] == 1:
+			animation_tree["parameters/ClimbDirection/current"] = 0
 			climb_direction = 1.0
 	elif input_direction < 0.0:
-		if $KinematicBody/AnimationTree["parameters/ClimbDirection/current"] == 0:
+		if animation_tree["parameters/ClimbDirection/current"] == 0:
 			climb_direction = -1.0
-			$KinematicBody/AnimationTree["parameters/ClimbDirection/current"] = 1
+			animation_tree["parameters/ClimbDirection/current"] = 1
 
 	if climb_direction == 1.0:
-		$KinematicBody/AnimationTree["parameters/ClimbProgressUp/seek_position"] = climb_progress
+		animation_tree["parameters/ClimbProgressUp/seek_position"] = climb_progress
 	else:
-		$KinematicBody/AnimationTree["parameters/ClimbProgressDown/seek_position"] = climb_progress
+		animation_tree["parameters/ClimbProgressDown/seek_position"] = climb_progress
 
-	velocity = $KinematicBody.move_and_slide(velocity, Vector3(0,1,0), false)
+	velocity = kinematic_body.move_and_slide(velocity, Vector3(0,1,0), false)
 
 func StopStairsClimb():
 	climbing_stairs = false
 	stairs = null
 	climb_point = -1
-	$KinematicBody/AnimationTree["parameters/MovementState/current"] = walking
+	animation_tree["parameters/MovementState/current"] = walking
 
 func DoInteractiveObjectCheck():
 	var space_state = get_world().direct_space_state
 	var params = PhysicsShapeQueryParameters.new()
 	var sphere = SphereShape.new()
-	var kb_pos = $KinematicBody.global_transform.origin
+	var kb_pos = kinematic_body.global_transform.origin
 
 	sphere.radius = 0.03
 	params.set_shape(sphere)
@@ -501,7 +477,7 @@ func UpdateNetworking():
 		return
 	if puppet:
 		if puppet_translation != null:
-			$KinematicBody.global_transform.origin = puppet_translation
+			kinematic_body.global_transform.origin = puppet_translation
 		if puppet_rotation != null:
 			model.global_transform.basis = puppet_rotation
 		if puppet_jump != null:
@@ -511,7 +487,7 @@ func UpdateNetworking():
 		if puppet_animation_speed != null:
 			animation_speed = puppet_animation_speed
 	elif is_network_master():
-		rset_unreliable("puppet_translation", $KinematicBody.global_transform.origin)
+		rset_unreliable("puppet_translation", kinematic_body.global_transform.origin)
 		rset_unreliable("puppet_rotation", model.global_transform.basis)
 		rset_unreliable("puppet_motion", motion)
 		rset_unreliable("puppet_jump", jumping)
@@ -566,7 +542,7 @@ var rp_points = []
 func PopRPoint():
 	if rp_points.size() > 0:
 			#printd("-----%s %s %s" % [rp_points.size(), get_path(), rp_points[0]])
-			$KinematicBody.global_transform = rp_points.pop_front()
+			kinematic_body.global_transform = rp_points.pop_front()
 			rp_time = 0
 
 func SaveRPoints(delta):
@@ -574,14 +550,14 @@ func SaveRPoints(delta):
 	rp_time += delta
 	if not in_air:
 			if rp_points.size() == 0:
-					rp_points.append($KinematicBody.global_transform)
+					rp_points.append(kinematic_body.global_transform)
 			if rp_points.size() > rp_max_points:
 					rp_points.pop_back()
 			if rp_time > rp_delta:
-					var kbo = $KinematicBody.global_transform.origin
+					var kbo = kinematic_body.global_transform.origin
 					if rp_points[0].origin.distance_to(kbo) > rp_delta_o:
 							rp_time = 0
-							rp_points.push_front($KinematicBody.global_transform)
+							rp_points.push_front(kinematic_body.global_transform)
 							#printd("+++++%s %s %s" % [rp_points.size(), get_path(), rp_points[0]])
 
 #var debug_id = "Player2.gd"

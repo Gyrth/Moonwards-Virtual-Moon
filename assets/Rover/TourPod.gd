@@ -2,10 +2,11 @@ extends Spatial
 
 var player_class = preload("res://assets/Player/avatar_v2/scripts/Player.gd")
 
-onready var label : Node = $CollisionShape/MeshInstance/Viewport/Label
-onready var animaton_player : Node = $AnimationPlayer
-onready var passenger_check : Node = $PassengerCheck
-onready var main_body : Node = $PassengerPod/PassengerPod/StaticBody
+onready var label : Node = $MainBody/TourPodArea/CollisionShape/MeshInstance/Viewport/Label
+onready var animaton_player : Node = $MainBody/AnimationPlayer
+onready var passenger_check : Node = $MainBody/PassengerCheck
+onready var body : Node = $MainBody
+onready var camera_control : Node = $MainBody/PlayerCamera
 export(NodePath) var target_location
 
 var passengers = []
@@ -15,7 +16,7 @@ var leave_timeout : float = 5.0
 var timer_started : bool = false
 onready var target_delivery_point : Vector3 = get_node(target_location).global_transform.origin
 
-func _process(delta):
+func _physics_process(delta):
 	if timer_started:
 		timer += delta
 		_set_text("Leaving in \n" + str(round(leave_timeout - timer)) + "\n seconds.")
@@ -23,6 +24,8 @@ func _process(delta):
 			timer_started = false
 			animaton_player.play("CloseDoor")
 			_lock_passengers()
+			body.set_collision_layer_bit(1, false)
+			camera_control.set_camera_control(true)
 			_set_text("")
 			yield(animaton_player, "animation_finished")
 			ready_to_leave = true
@@ -37,10 +40,7 @@ func _set_text(text : String) -> void:
 func _lock_passengers():
 	yield(get_tree(), "physics_frame")
 	yield(get_tree(), "physics_frame")
-	yield(get_tree(), "physics_frame")
-	yield(get_tree(), "physics_frame")
 	var bodies = passenger_check.get_overlapping_bodies()
-	main_body.set_collision_layer_bit(1, false)
 	
 	for object in bodies:
 		if object is KinematicBody:
@@ -48,7 +48,7 @@ func _lock_passengers():
 			object.get_parent().frozen = true
 			var old_transform = object.global_transform
 			object.get_parent().remove_child(object)
-			self.add_child(object)
+			body.add_child(object)
 			object.global_transform = old_transform
 
 func free_passengers():
@@ -61,6 +61,7 @@ func free_passengers():
 	passengers.resize(0)
 
 func delivered():
-	main_body.set_collision_layer_bit(1, true)
+	body.set_collision_layer_bit(1, true)
 	free_passengers()
 	animaton_player.play("OpenDoor")
+	camera_control.set_camera_control(false)

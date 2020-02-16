@@ -42,15 +42,15 @@ func _update_state(delta : float) -> void:
 	if state == idle:
 		if pod != null:
 			#Go get the pod if assigned one.
-			_calculate_path(pod.global_transform.origin)
+			_calculate_path(pod.body.global_transform.origin)
 			state = retrieve_pod
 			pass
 	elif state == retrieve_pod:
 		if _update_movement(delta):
 			var old_transform = pod.global_transform
-			pod.get_parent().remove_child(pod)
-			root_bone_attachment.add_child(pod)
-			pod.global_transform = old_transform
+			pod.body.get_parent().remove_child(pod.body)
+			root_bone_attachment.add_child(pod.body)
+			pod.body.global_transform = old_transform
 			state = docked
 	elif state == done:
 		pass
@@ -63,13 +63,13 @@ func _update_state(delta : float) -> void:
 	elif state == deliver_pod:
 		if _update_movement(delta):
 			animation_tree.set("parameters/RideHeight/current", 0)
-			yield(get_tree().create_timer(2.0), "timeout")
-			var old_transform = pod.global_transform
-			root_bone_attachment.remove_child(pod)
-			get_parent().add_child(pod)
-			pod.global_transform = old_transform
-			pod.delivered()
 			state = done
+			yield(get_tree().create_timer(2.0), "timeout")
+			var old_transform = pod.body.global_transform
+			root_bone_attachment.remove_child(pod.body)
+			get_parent().add_child(pod.body)
+			pod.body.global_transform = old_transform
+			pod.delivered()
 
 func _calculate_path(target_point : Vector3):
 	var starting_point = navigation.get_closest_point(kinematic_body.global_transform.origin)
