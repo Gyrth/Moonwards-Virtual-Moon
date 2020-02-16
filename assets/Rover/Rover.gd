@@ -107,8 +107,8 @@ func _update_movement(delta : float) -> bool:
 		flat_force.y = 0.0
 		flat_force = flat_force.normalized()
 		if flat_force != Vector3():
-			var target_transform = kinematic_body.global_transform.looking_at(kinematic_body.global_transform.origin - flat_force, Vector3(0, 1, 0))
+			var target_transform = model.global_transform.looking_at(model.global_transform.origin - flat_force, Vector3(0, 1, 0))
 			_kb_quat = _kb_quat.slerp(Quat(target_transform.basis), delta * TURN_SPEED)
-			kinematic_body.global_transform.basis = Basis(_kb_quat)
+			model.global_transform.basis = Basis(_kb_quat)
 	
 	return false

@@ -35,8 +35,13 @@ func _set_text(text : String) -> void:
 	label.text = text
 
 func _lock_passengers():
-	main_body.add_to_group("no_camera_collide")
+	yield(get_tree(), "physics_frame")
+	yield(get_tree(), "physics_frame")
+	yield(get_tree(), "physics_frame")
+	yield(get_tree(), "physics_frame")
 	var bodies = passenger_check.get_overlapping_bodies()
+	main_body.set_collision_layer_bit(1, false)
+	
 	for object in bodies:
 		if object is KinematicBody:
 			passengers.append({"object" : object, "parent" : object.get_parent()})
@@ -56,6 +61,6 @@ func free_passengers():
 	passengers.resize(0)
 
 func delivered():
+	main_body.set_collision_layer_bit(1, true)
 	free_passengers()
-	main_body.remove_from_group("no_camera_collide")
 	animaton_player.play("OpenDoor")
