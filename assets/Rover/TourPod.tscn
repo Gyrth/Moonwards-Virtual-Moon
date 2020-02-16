@@ -257,6 +257,11 @@ collision_mask = 8
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49012e-08, -4.44089e-16 )
 shape = SubResource( 15 )
 
+[node name="PassengerCheck" type="CollisionShape" parent="MainBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 2.98023e-08, 1, 0, -4.47035e-08, 0.105753 )
+shape = SubResource( 16 )
+disabled = true
+
 [node name="PlayerCamera" parent="MainBody" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 2.98023e-08, 1, 0, -4.47035e-08, 1.33227e-15 )
 kinematic_body_path = NodePath("../../MainBody/TourPodArea/PassengerPod")
@@ -267,16 +272,6 @@ min_zoom_distance = 0.5
 
 [node name="RayCast" parent="MainBody/PlayerCamera" index="0"]
 collision_mask = 1
-
-[node name="PassengerCheck" type="Area" parent="MainBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 2.98023e-08, 1, 0, -4.47035e-08, 1.33227e-15 )
-monitorable = false
-collision_layer = 2
-collision_mask = 8
-
-[node name="CollisionShape" type="CollisionShape" parent="MainBody/PassengerCheck"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.105753 )
-shape = SubResource( 16 )
 
 [node name="TourPodArea" type="Area" parent="MainBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49012e-08, -4.44089e-16 )

@@ -30,12 +30,12 @@ func _process(delta):
 		_set_text("Leaving in \n" + str(round(leave_timeout - timer)) + "\n seconds.")
 		if timer >= (leave_timeout - 1.0):
 			timer_started = false
-			_lock_passengers()
 			animaton_player.play("CloseDoor")
-			body.set_collision_layer_bit(1, false)
-			camera_control.set_camera_control(true)
 			_set_text("")
 			yield(animaton_player, "animation_finished")
+			camera_control.set_camera_control(true)
+			_lock_passengers()
+			body.set_collision_layer_bit(1, false)
 			ready_to_leave = true
 			timer = 0.0
 
@@ -47,10 +47,15 @@ func _set_text(text : String) -> void:
 	label.text = text
 
 func _lock_passengers():
-	yield(get_tree(), "idle_frame")
-	var bodies = passenger_check.get_overlapping_bodies()
+	var space_state = get_world().get_direct_space_state()
+	var query = PhysicsShapeQueryParameters.new()
+	query.set_collision_mask(8)
+	query.set_shape(passenger_check.shape)
+	query.transform = passenger_check.global_transform
+	var results = space_state.intersect_shape(query)
 	
-	for object in bodies:
+	for result in results:
+		var object = result.collider
 		if object is KinematicBody:
 			passengers.append({"object" : object, "parent" : object.get_parent()})
 			object.get_parent().frozen = true
@@ -69,7 +74,7 @@ func free_passengers():
 	passengers.resize(0)
 
 func delivered():
-	free_passengers()
 	body.set_collision_layer_bit(1, true)
-	animaton_player.play("OpenDoor")
+	free_passengers()
 	camera_control.set_camera_control(false)
+	animaton_player.play("OpenDoor")
