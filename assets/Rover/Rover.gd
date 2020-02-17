@@ -1,10 +1,11 @@
 extends Spatial
 
 const MOVEMENT_SPEED : float = 10.0
+const DOCKING_SPEED : float = 20.0
 const MAX_SPEED : float = 3.0
 const TURN_SPEED : float = 0.4
 const MIN_TURN_SPEED : float = 0.05
-const MAX_TURN_SPEED : float = 0.08
+const MAX_TURN_SPEED : float = 0.051
 
 onready var animation_tree : AnimationTree = $KinematicBody/AnimationTree
 onready var model : Node = $KinematicBody/AthleteRover
@@ -81,6 +82,7 @@ func _update_state(delta : float) -> void:
 			animation_tree.set("parameters/RideHeight/current", ride_low)
 			state = placing_pod
 	elif state == placing_pod:
+		_update_movement(delta)
 		if abs(_target_location.origin.y - pod.body.global_transform.origin.y) < 0.01:
 			var old_transform = pod.body.global_transform
 			root_bone_attachment.remove_child(pod.body)
@@ -115,8 +117,8 @@ func _check_equal_approx_float(var a : float, var b : float, var tolerance : flo
 
 func _update_movement(delta : float) -> bool:
 	if _nav_targets.size() <= 1:
-		_turn_tolerance = 0.005
-		_move_tolerance = 0.1
+		_turn_tolerance = 0.003
+		_move_tolerance = 0.05
 	else:
 		_turn_tolerance = 0.05
 		_move_tolerance = 0.3
@@ -127,7 +129,7 @@ func _update_movement(delta : float) -> bool:
 		
 		_movement_direction = (_target_location.origin - kinematic_body.global_transform.origin).normalized()
 		_movement_direction.y = 0.0
-		var movement_velocity = _movement_direction * MOVEMENT_SPEED * delta
+		var movement_velocity = _movement_direction * DOCKING_SPEED * delta
 		kinematic_body.move_and_slide(movement_velocity)
 		
 		if _check_equal_approx(_kb_basis, _target_location.basis):
