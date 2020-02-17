@@ -1,0 +1,7 @@
+[gd_resource type="SpatialMaterial" format=2]
+
+[resource]
+resource_name = "Pumpkin"
+flags_transparent = true
+params_depth_draw_mode = 2
+albedo_color = Color( 0.941176, 0.47451, 0.156863, 0.196078 )

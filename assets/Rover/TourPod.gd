@@ -1,13 +1,11 @@
 extends Spatial
 
-var player_class = preload("res://assets/Player/avatar_v2/scripts/Player.gd")
-
 onready var label : Node = $MainBody/TourPodArea/CollisionShape/MeshInstance/Viewport/Label
 onready var animaton_player : Node = $MainBody/AnimationPlayer
 onready var passenger_check : Node = $MainBody/PassengerCheck
 onready var body : Node = $MainBody
 onready var camera_control : Node = $MainBody/PlayerCamera
-export(NodePath) var target_location
+export(Array, NodePath) var location_paths
 
 var passengers = []
 var ready_to_leave : bool = false
@@ -15,7 +13,19 @@ var rover_present : bool = false setget set_rover_present
 var timer : float = 0.0
 var leave_timeout : float = 5.0
 var timer_started : bool = false
-onready var target_delivery : Transform = get_node(target_location).global_transform
+var current_location = 0
+var locations = []
+onready var target_transform : Transform
+
+func _ready():
+	for location_path in location_paths:
+		locations.append(get_node(location_path))
+	_set_target_location()
+
+func _set_target_location():
+	if current_location >= locations.size():
+		current_location = 0
+	target_transform = locations[current_location].global_transform
 
 func set_rover_present(var _rover_present):
 	rover_present = _rover_present
@@ -33,7 +43,6 @@ func _process(delta):
 			animaton_player.play("CloseDoor")
 			_set_text("")
 			yield(animaton_player, "animation_finished")
-			camera_control.set_camera_control(true)
 			_lock_passengers()
 			body.set_collision_layer_bit(1, false)
 			ready_to_leave = true
@@ -57,12 +66,15 @@ func _lock_passengers():
 	for result in results:
 		var object = result.collider
 		if object is KinematicBody:
-			passengers.append({"object" : object, "parent" : object.get_parent()})
-			object.get_parent().frozen = true
+			var parent = object.get_parent()
+			passengers.append({"object" : object, "parent" : parent})
+			parent.frozen = true
 			var old_transform = object.global_transform
-			object.get_parent().remove_child(object)
+			parent.remove_child(object)
 			body.add_child(object)
 			object.global_transform = old_transform
+			if !parent.puppet:
+				camera_control.set_camera_control(true)
 
 func free_passengers():
 	for passenger in passengers:
@@ -74,7 +86,10 @@ func free_passengers():
 	passengers.resize(0)
 
 func delivered():
+	ready_to_leave = false
 	body.set_collision_layer_bit(1, true)
 	free_passengers()
 	camera_control.set_camera_control(false)
 	animaton_player.play("OpenDoor")
+	current_location += 1
+	_set_target_location()
