@@ -43,12 +43,35 @@ var _target_location : Transform = Transform()
 var _nav_targets : PoolVector3Array = PoolVector3Array()
 var _turn_tolerance : float = 0.01
 var _move_tolerance : float = 0.01
+var _at_target_height : bool = false
+var _current_height : float = 0.0
+var _target_height : float = 0.0
+var _height_movement_speed : float = 0.25
 
 func _ready() -> void:
 	_movement_direction = global_transform.basis.z
 
 func _physics_process(delta : float) -> void:
+	_update_height(delta)
 	_update_state(delta)
+
+func _set_target_height(var new_target_height):
+	_at_target_height = false
+	_target_height = new_target_height
+
+func _update_height(delta):
+	if _current_height < _target_height:
+		_current_height += delta * _height_movement_speed
+		animation_tree.set("parameters/RideHeight/blend_amount", _current_height)
+	elif _current_height > _target_height:
+		_current_height -= delta * _height_movement_speed
+		animation_tree.set("parameters/RideHeight/blend_amount", _current_height)
+	
+	if _current_height == _target_height:
+		_at_target_height = true
+	elif abs(_current_height - _target_height) < 0.001:
+		_current_height = _target_height
+		animation_tree.set("parameters/RideHeight/blend_amount", _current_height)
 
 func _update_state(delta : float) -> void:
 	if state == idle:
@@ -63,34 +86,34 @@ func _update_state(delta : float) -> void:
 			if !pod.rover_present:
 				pod.rover_present = true
 			if pod.ready_to_leave:
-				animation_tree.set("parameters/RideHeight/current", ride_low)
+				_set_target_height(0.0)
 				state = picking_up_pod
 	elif state == picking_up_pod:
-		if abs(attachment_position.global_transform.origin.y - pod.body.global_transform.origin.y) < 0.01:
+		if abs(attachment_position.global_transform.origin.y - pod.body.global_transform.origin.y) < 0.01 or _at_target_height:
 			var old_transform = pod.body.global_transform
 			pod.body.get_parent().remove_child(pod.body)
 			root_bone_attachment.add_child(pod.body)
 			pod.body.global_transform = old_transform
 			state = docked
 	elif state == docked:
-		animation_tree.set("parameters/RideHeight/current", ride_high)
+		_set_target_height(1.0)
 		yield(get_tree().create_timer(2.0), "timeout")
 		_calculate_path(pod.target_transform)
 		state = deliver_pod
 	elif state == deliver_pod:
 		if _update_movement(delta):
-			animation_tree.set("parameters/RideHeight/current", ride_low)
+			_set_target_height(0.0)
 			state = placing_pod
 	elif state == placing_pod:
 		_update_movement(delta)
-		if abs(_target_location.origin.y - pod.body.global_transform.origin.y) < 0.01:
+		if abs(_target_location.origin.y - pod.body.global_transform.origin.y) < 0.01 or _at_target_height:
 			var old_transform = pod.body.global_transform
 			root_bone_attachment.remove_child(pod.body)
 			pod.add_child(pod.body)
 			pod.body.global_transform = old_transform
 			pod.delivered()
 			pod.rover_present = false
-			animation_tree.set("parameters/RideHeight/current", ride_high)
+			_set_target_height(1.0)
 			state = idle
 
 func _calculate_path(new_target_location : Transform):
