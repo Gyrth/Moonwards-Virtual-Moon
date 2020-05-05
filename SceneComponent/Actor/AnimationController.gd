@@ -18,10 +18,5 @@ func _initialize():
 	animation = model.get_node("AnimationPlayer")
 	pass
 
-func _process(_delta):
-	if Helpers.Enum.has_flag(entity.state.state, ActorEntityState.State.IDLE):
-		animation.play("CasualStance1")
-	elif Helpers.Enum.has_flag(entity.state.state, ActorEntityState.State.MOVING):
-		animation.play("Female_MoonWalking-loop")
-	elif Helpers.Enum.has_flag(entity.state.state, ActorEntityState.State.IN_AIR):
-		animation.play("Flail-loop")
+func _process_client(_delta):
+	pass

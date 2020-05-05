@@ -1,7 +1,8 @@
 extends AComponent
 
 # Temporary until this is done dynamically.
-onready var mesh_inst: MeshInstance = $FemaleRig/Skeleton/AvatarFemale
+export (NodePath) var mesh_path : NodePath
+onready var mesh: MeshInstance = get_node(mesh_path)
 onready var animation: AnimationPlayer = $AnimationPlayer
 
 func _init().("ModelComponent", false):

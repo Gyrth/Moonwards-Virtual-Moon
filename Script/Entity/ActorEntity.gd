@@ -8,6 +8,7 @@ class_name ActorEntity
 
 onready var model = $Model
 onready var animation = $Model/AnimationPlayer
+onready var animation_tree = $Model/AnimationTree
 
 # The current `state` of the entity. 
 # Contains metadata in regards to what entity is currently doing.
